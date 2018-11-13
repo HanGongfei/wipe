@@ -20,7 +20,7 @@ function drawMask(context){
 	context.fillRect(0,0,_w,_h);
 	context.globalCompositeOperation ="destination-out";
 }
-//在画布上画半径为30的圆
+/*//在画布上画半径为30的圆
 function drawPoint(context,posX,posY){
 	context.save();
 	context.beginPath();
@@ -39,32 +39,37 @@ function drawLine(context,x1,y1,x2,y2){
 	context.lineTo(x2,y2 );
 	context.stroke();
 	context.restore();
+}*/
+function draw(context,x1,y1,x2,y2){
+	if (arguments.length === 3) {
+		context.save();
+		context.beginPath();
+		context.fillStyle = "red";
+		context.arc(x1,y1,radius,0,2*Math.PI);
+		context.fill();
+		context.restore();
+	}else if(arguments.length === 5){
+		context.save();
+		context.lineWidth = radius*2;
+		context.lineCap = "round";
+		context.beginPath();
+		context.moveTo(x1,y1);
+		context.lineTo(x2,y2 );
+		context.stroke();
+		context.restore();
+	}else{
+		return false;
+	}
 }
-// function transHaleder(context,x1,y1,x2,y2){
-// 	context.save();
-// 	context.beginPath();
-// 	if(arguments.length == 3){
-// 		context.fillStyle = "red";
-// 		context.arc(x1,y1,radius,0,2*Math.PI);
-// 		context.fill();
-// 	}else if(arguments.length == 5){
-// 		context.lineWidth = radius*2;
-// 		context.lineCap = "round";
-// 		context.moveTo(x1,y1);
-// 		context.lineTo(x2,y2 );
-// 		context.stroke();
-// 	}
-// 	context.restore();
-// 	console.log(arguments);
-// }
 //手指点击
 cas.addEventListener(clickEvtName,function(evt){
 	isMouseDown = true;
 	var event = evt || window.event;
+	event.preventDefault();
 	//获取手指在视口的坐标,传递参数到drawPoint
-	posX = device? event.touches[0].clientX : event.clientX;
-	posY = device? event.touches[0].clientY : event.clientY;
-	drawPoint(context,posX,posY);
+	x1 = device? event.touches[0].clientX : event.clientX;
+	y1 = device? event.touches[0].clientY : event.clientY;
+	draw(context,x1,y1);
 });
 //手指移动
 cas.addEventListener(moveEvtName,function(evt){
@@ -73,10 +78,10 @@ cas.addEventListener(moveEvtName,function(evt){
 		event.preventDefault();
 		var x2 = device? event.touches[0].clientX:event.clientX;
 		var y2 = device? event.touches[0].clientY:event.clientY;
-		drawLine(context,posX,posY,x2,y2);
+		draw(context,x1,y1,x2,y2);
 		//每次的结束点编程下一次划线的开始
-		posX = x2;
-		posY = y2;
+		x1 = x2;
+		y1 = y2;
 	}else{
 		return false;
 	}
