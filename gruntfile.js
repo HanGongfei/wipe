@@ -1,4 +1,3 @@
-
 // gruntfile.js
 // 模块化导入函数
 module.exports = function(grunt){
@@ -48,8 +47,8 @@ module.exports = function(grunt){
 				src:['sample/js/index.html'],
 				overwrite:true,
 				replacements:[{
-					from:/wipe-.\.min\.js/g,
-					to:''
+					from:/wipe-.\d[\.]\d[\.]\d\.min/g,
+					to:'wipe-<%=pkg.version%>.min.js'
 				}]
 			}
 		}
@@ -62,5 +61,5 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-text-replace');
 	// 告诉grunt当我们输入grunt命令需要做些什么，有先后顺序
-	grunt.registerTask('default',['jshint','clean','uglify','copy']);
+	grunt.registerTask('default',['jshint','clean','uglify','copy','replace']);
 }

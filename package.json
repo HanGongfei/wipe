@@ -1,5 +1,5 @@
 {
-  "name": "hgf-wipe",
+  "name": "wipe-hgf",
   "version": "1.0.0",
   "devDependencies": {
     "grunt": "^1.0.3",
