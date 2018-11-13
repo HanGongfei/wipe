@@ -2,8 +2,8 @@ var cas = document.getElementById("cas");
 var context = cas.getContext("2d");
 var _w = cas.width,_h = cas.height;
 var radius = 30;
-var x1 = 0;
-var y1 = 0;
+var posX = 0;
+var posY = 0;
 var isMouseDown = false;
 //表示鼠标的状态,是否按下,默认未按下false,按下true;
 
