@@ -11,17 +11,47 @@
 			margin: 0;
 			padding: 0;
 		}
+		.parent{
+			position: relative;
+			left:100px;
+			top:100px;
+		}
 		#cas{
 			border: 1px solid #000;
 			background: url(images/wipe1.jpg) center  0 no-repeat;
 			background-size: cover;
+			position:absolute;
 		}
+		
 	</style>
 </head>
 <body>
+<div class="parent">
 	<canvas id="cas" width="375" height="667"></canvas>
-	<span>在主分支的修改</span>
-	<div>在wwl01分支上的修改</div>
+</div>
+<!-- 	<span>在主分支的修改</span>
+	<div>在wwl01分支上的修改</div> -->
 </body>
 </html>
 <script src="js/wipe.js"></script>
+<script>
+var wipeConfig={
+	id:"cas",
+	coverType:"image",  //取值类型为color、image
+	color:"",
+	imgUrl:"images/wipe2.jpg",  //前面的覆盖图
+	backImgUrl:"images/wipe1.jpg",  //背景图片
+	width:"375",  //canvas宽
+	height:"667",  //canvas高
+	radius:"30",//涂抹笔的半径
+	percent:50, //透明面积占整个画布的百分比,超出此数字显示全部画布
+	callback:wipedCallback//用户自定义回调函数名称
+
+}
+var cas01 = new Wipe(wipeConfig);
+function wipedCallback(perenct){
+	if( percent > 50){
+		console.log("透明面积超过");
+	}
+}
+</script>
