@@ -29,7 +29,7 @@ Wipe.prototype.drawMask=function(){
 
 	if( this.coverType === "color"){
 		this.context.fillStyle= this.color;
-		this.context.fillRect(0,0,this._w,this._h);
+		that.context.drawImage(img,0,0,img.width,img.height, 0, 0,that._w,that._h);
 		this.context.globalCompositeOperation = "destination-out";
 	}else if(this.coverType === "image"){
 		//将imgUrl指定的图片填充画布
@@ -109,7 +109,7 @@ Wipe.prototype.addEvent = function(){
 		//获取鼠标在视口的坐标，传递参数到drawPoint
 		that.moveX = that.device ?  event.touches[0].clientX : event.clientX;
 		that.moveY = that.device ?  event.touches[0].clientY : event.clientY;
-		that.drawT(that.moveX-,that.moveY);
+		that.drawT(that.moveX-getAllOffsetLeft(this.cas),that.moveY-getAllOffsetTop(this.cas));
 	},false);
 	//增加监听"mousemove",调用drawPoint函数
 	this.cas.addEventListener(moveEvtName,function(evt){
@@ -122,7 +122,7 @@ Wipe.prototype.addEvent = function(){
 			var x2 = this.device ? event.touches[0].clientX : event.clientX;
 			var y2 = this.device ? event.touches[0].clientY : event.clientY;
 			//drawPoint(context,a,b);
-			that.drawT(that.moveX,that.moveY,x2,y2);
+			that.drawT(that.moveX-getAllOffsetLeft(this.cas),that.moveY-getAllOffsetTop(this.cas),x2-getAllOffsetLeft(this.cas),y2-getAllOffsetTop(this.cas));
 			//每次的结束点变成下一次划线的开始点
 			that.moveX = x2;
 			that.moveY = y2;
